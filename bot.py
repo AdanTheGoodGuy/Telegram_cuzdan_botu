@@ -818,7 +818,7 @@ def main():
     app.add_error_handler(error_handler)
     
     print("Bot çalışıyor...")
-    app.run_polling(drop_pending_updates=True, connect_timeout=20, read_timeout=20, write_timeout=20, pool_timeout=20)
+    app.run_polling(drop_pending_updates=True)
 
 if __name__ == "__main__":
     main()
