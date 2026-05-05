@@ -130,9 +130,14 @@ DUZENLE_MESAJLARI = [
 
 IPTAL_HATIRLATMA = "\n\n🔙 İptal için `/iptal` yaz."
 
+# Veritabanı Yol Ayarı (Volume için data klasörü)
+DB_DIR = "data"
+DB_PATH = os.path.join(DB_DIR, "data.db")
+os.makedirs(DB_DIR, exist_ok=True)
+
 # Veritabanı Yardımcıları
 def get_db():
-    conn = sqlite3.connect('data.db')
+    conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
     return conn
 
