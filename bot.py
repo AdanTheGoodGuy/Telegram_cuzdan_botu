@@ -28,7 +28,17 @@ load_dotenv()
 TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 
 # Sabitler
-KATEGORILER = {
+GELIR_KATEGORILERI = {
+    "💼 Maaş": "Maaş",
+    "💻 Freelance": "Freelance",
+    "🎁 Hediye": "Hediye",
+    "📈 Yatırım Getirisi": "Yatırım Getirisi",
+    "🏠 Kira Geliri": "Kira Geliri",
+    "💰 Borç Tahsilatı": "Borç Tahsilatı",
+    "📦 Diğer": "Diğer"
+}
+
+GIDER_KATEGORILERI = {
     "🛒 Market": "Market",
     "🏠 Fatura": "Fatura",
     "🚗 Ulaşım": "Ulaşım",
@@ -37,7 +47,6 @@ KATEGORILER = {
     "💊 Sağlık": "Sağlık",
     "📦 Diğer": "Diğer"
 }
-KATEGORI_CLEAN = list(KATEGORILER.values())
 
 # Yardımcı: Düzenleme menü klavyesi
 def edit_menu_keyboard():
@@ -46,9 +55,10 @@ def edit_menu_keyboard():
         [InlineKeyboardButton("📝 Açıklama", callback_data="edit_aciklama"), InlineKeyboardButton("✅ Tamamla", callback_data="edit_bitir")]
     ])
 
-# Yardımcı: Kategori butonları
-def category_buttons(prefix="edit_cat_"):
-    return [[InlineKeyboardButton(d, callback_data=f"{prefix}{c}")] for d, c in KATEGORILER.items()]
+# Yardımcı: Kategori butonları (prefix ve tip bazlı)
+def category_buttons(prefix="edit_cat_", kategori_tip="gider"):
+    kategoriler = GELIR_KATEGORILERI if kategori_tip == "gelir" else GIDER_KATEGORILERI
+    return [[InlineKeyboardButton(d, callback_data=f"{prefix}{c}")] for d, c in kategoriler.items()]
 
 # 💬 BAĞLAMSAL MESAJLAR
 GELIR_MESAJLARI = [
@@ -260,7 +270,8 @@ async def tutar_alindi(update: Update, context: ContextTypes.DEFAULT_TYPE):
             await update.message.reply_text("⚠️ Lütfen sıfırdan büyük bir sayı gir. 📏" + IPTAL_HATIRLATMA, parse_mode="Markdown")
             return WAITING_AMOUNT
         context.user_data['amount'] = val
-        keyboard = category_buttons(prefix="add_cat_")
+        tip = context.user_data.get('type', 'gider')
+        keyboard = category_buttons(prefix="add_cat_", kategori_tip=tip)
         await update.message.reply_text(f"✅ Tutar: `{val} TL` kaydedildi.\n📂 Şimdi kategori seç:" + IPTAL_HATIRLATMA, reply_markup=InlineKeyboardMarkup(keyboard), parse_mode="Markdown")
         return WAITING_CATEGORY
     except ValueError:
@@ -398,7 +409,7 @@ async def sil(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("❌ Geçersiz ID. Lütfen bir sayı gir. 🔢")
 
 async def ara_basla(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    keyboard = category_buttons(prefix="ara_")
+    keyboard = category_buttons(prefix="ara_", kategori_tip="gider")
     await update.message.reply_text("🔍 *Hangi kategorideki harcamaları görmek istersin?*", reply_markup=InlineKeyboardMarkup(keyboard), parse_mode="Markdown")
 
 async def ara_kategori_secildi(update: Update, context: ContextTypes.DEFAULT_TYPE):
