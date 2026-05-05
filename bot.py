@@ -260,7 +260,7 @@ async def tutar_alindi(update: Update, context: ContextTypes.DEFAULT_TYPE):
             await update.message.reply_text("⚠️ Lütfen sıfırdan büyük bir sayı gir. 📏" + IPTAL_HATIRLATMA, parse_mode="Markdown")
             return WAITING_AMOUNT
         context.user_data['amount'] = val
-        keyboard = category_buttons()
+        keyboard = category_buttons(prefix="add_cat_")
         await update.message.reply_text(f"✅ Tutar: `{val} TL` kaydedildi.\n📂 Şimdi kategori seç:" + IPTAL_HATIRLATMA, reply_markup=InlineKeyboardMarkup(keyboard), parse_mode="Markdown")
         return WAITING_CATEGORY
     except ValueError:
@@ -270,8 +270,8 @@ async def tutar_alindi(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def kategori_secildi(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
-    context.user_data['category'] = query.data
-    await query.edit_message_text(f"📂 Kategori: *{query.data}*. \n📝 Açıklama yaz (veya 'atla' yaz):" + IPTAL_HATIRLATMA, parse_mode="Markdown")
+    context.user_data['category'] = query.data.replace("add_cat_", "")
+    await query.edit_message_text(f"📂 Kategori: *{context.user_data['category']}*. \n📝 Açıklama yaz (veya 'atla' yaz):" + IPTAL_HATIRLATMA, parse_mode="Markdown")
     return WAITING_DESC
 
 async def aciklama_alindi(update: Update, context: ContextTypes.DEFAULT_TYPE):
