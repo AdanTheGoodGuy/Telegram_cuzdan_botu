@@ -61,27 +61,103 @@ def category_buttons(prefix="edit_cat_", kategori_tip="gider"):
     return [[InlineKeyboardButton(d, callback_data=f"{prefix}{c}")] for d, c in kategoriler.items()]
 
 # 💬 BAĞLAMSAL MESAJLAR
-GELIR_MESAJLARI = [
-    "Harika! Kazancın arttıkça özgürlüğün de artar. 💪💰",
-    "Gelir eklendi, cüzdanın derin nefes aldı! 🌬️✨",
-    "Kazanmak güzel, akıllıca yönetmek daha güzel. 🧠📈",
-    "Bu ayın kazançları umut verici! Gelecek parlak. 🚀",
-    "Her kuruşun hesabını bilmek, servetin ilk adımı. 👣💎",
-    "Kazandığın için değil, biriktirdiğin için zenginsin. 🏦",
-    "Cebine giren para, hedeflerine giden yoldur. 🛣️🌟",
-    "Para kazanmak bir sanat, harcamak bir bilim. 🎨🔬"
-]
+GELIR_MESAJLARI = {
+    "Maaş": [
+        "Maaşın cüzdanına bereket getirsin! Düzenli gelir, güvenli yarınlar demektir. 💼💪",
+        "Maaş günü en güzel gün! Emeğinin karşılığını almak ne güzel. 🎉💵",
+        "Düzenli maaş, düzenli hayat. Birikim planını unutma! 📋💰",
+        "Alın terin bereketlensin. Maaşını akıllıca yönetmek sana kalmış. 🧠✨"
+    ],
+    "Freelance": [
+        "Ek işler büyük hayallere dönüşür! Yeteneklerin paraya dönüştü. 💻🚀",
+        "Freelance kazancın pasif değil ama özgürlüğün anahtarı. 🗝️🌟",
+        "Yan gelirler zenginliğin gizli silahıdır. Harika iş! 💪📈",
+        "Kendi işinin patronu olmak güzel. Kazancın artsın! 👨‍💼✨"
+    ],
+    "Hediye": [
+        "Ne güzel bir jest! Hediyeler kalbe, para cüzdana iyi gelir. 🎁💖",
+        "Hediye, sevenin gönlünden kopandır. Güzel günlerde harca! 🌸🎀",
+        "Sürpriz gelirler hayatı güzelleştirir. Bunu biriktirmeyi düşün! 🎈🏦",
+        "Hediye bile olsa, kaydetmek akıllıca. Her kuruşun hesabı önemli. 📝👏"
+    ],
+    "Yatırım Getirisi": [
+        "Paran senin için çalışıyor! Yatırımın meyvelerini topluyorsun. 📈🍎",
+        "Pasif gelir, finansal özgürlüğün ta kendisi. Bravo! 👏🏦",
+        "Yatırım getirisi en tatlı gelirdir. Bunu yeniden yatırmayı düşün! 🔄💎",
+        "Bileşik getirinin gücü zamanla ortaya çıkar. Sabırlı ol! 🐢📊"
+    ],
+    "Kira Geliri": [
+        "Pasif gelir akışın var! Gayrimenkul yatırımın meyve veriyor. 🏠🍇",
+        "Kira geliri düzenli bir ek gelir. Gayrimenkul sahibi olmak güzel! 🏢💰",
+        "Evin kiracısından gelen para, ev sahibinin huzurudur. 🏡😌",
+        "Kira gelirini birikime yönlendirmek akıllıca bir hamle! 🎯🏦"
+    ],
+    "Borç Tahsilatı": [
+        "Alacağını tahsil ettin! Vermek vermektir, almak almaktır. 💰🤝",
+        "Borç tahsilatı zor iştir ama başardın. Geçmiş olsun! ✅😅",
+        "Veren el alan elden üstündür, ama alacak da haktır. ⚖️📋",
+        "Borç kapandı, rahatladın. Bundan sonra borca dikkat! 🔒🧠"
+    ],
+    "Diğer": [
+        "Harika! Kazancın arttıkça özgürlüğün de artar. 💪💰",
+        "Gelir eklendi, cüzdanın derin nefes aldı! 🌬️✨",
+        "Kazanmak güzel, akıllıca yönetmek daha güzel. 🧠📈",
+        "Bu ayın kazançları umut verici! Gelecek parlak. 🚀",
+        "Her kuruşun hesabını bilmek, servetin ilk adımı. 👣💎",
+        "Kazandığın için değil, biriktirdiğin için zenginsin. 🏦",
+        "Cebine giren para, hedeflerine giden yoldur. 🛣️🌟",
+        "Para kazanmak bir sanat, harcamak bir bilim. 🎨🔬"
+    ]
+}
 
-GIDER_MESAJLARI = [
-    "Harcama kaydedildi. Bilinçli harcama, birikimin yarısıdır. 🧠💡",
-    "Paranın nereye gittiğini bilmek, zenginliğin ilk adımı. 👣📊",
-    "Bu harcama gerekli miydi? Bir dahakine biraz daha düşünelim. 🤔⚖️",
-    "Küçük harcamalar, büyük birikimlerin sessiz düşmanıdır. 🐜📉",
-    "Not edildi! Bütçeni aşmamaya dikkat et. 📝⚠️",
-    "Her harcama bir tercih, her tercih bir gelecektir. 🔮💸",
-    "Harcamanı kaydettin, şimdi telafisi için plan yap. 📋🔄",
-    "Para akıyor, ama senin kontrolünde mi? 🌊🎛️"
-]
+GIDER_MESAJLARI = {
+    "Market": [
+        "Market harcaması kaydedildi. Listen dışına çıkmamaya özen göster. 🛒📝",
+        "İhtiyaçların takibini yapmak akıllıca. Markette gereksiz alışveriş yok! ✅🧠",
+        "Market masrafın bilinçli harcamadır. Ama aç gitme! 😄🥦",
+        "Düzenli market alışverişi bütçe dostudur. Paketli gıdalara dikkat! 📦⚠️"
+    ],
+    "Fatura": [
+        "Faturan kaydedildi. Düzenli ödeme alışkanlığı güvenilir bireyin işaretidir. 🏠✅",
+        "Faturalar hayatın rutinidir. Ödemelerini unutma, gecikme faizi can yakar! ⏰🔥",
+        "Elektrik, su, doğalgaz... Hepsi kayıt altında. Bütçende yer aç! 📋💡",
+        "Fatura ödemek zorundayız ama tasarruf etmek de elimizde. 🔌💧"
+    ],
+    "Ulaşım": [
+        "Yol masrafın kaydedildi. Ulaşım bütçeni kontrol altında tut. 🚗📊",
+        "Toplu taşıma mı, özel araç mı? Hangisi daha hesaplı hesapla! 🚌🚗",
+        "Her yolculuk bir maliyettir. Yakıt ve bakım masraflarını ihmal etme. ⛽🔧",
+        "Ulaşım giderlerini optimize etmek büyük tasarruf sağlar. 🎯💰"
+    ],
+    "Yemek": [
+        "Yemek harcaması kaydedildi. Dışarıda yemek güzel ama ev yemeği biriktirir. 🍔🏠",
+        "Karnın doysun ama cüzdanın aç kalmasın! Evde yemek daha ekonomik. 👨‍🍳💰",
+        "Yemek giderleri ay sonunda büyük bir rakama ulaşabilir. Dikkatli ol! 📈😅",
+        "Sağlıklı beslen, akıllı harca. Abur cuburdan uzak dur! 🥗✅"
+    ],
+    "Eğlence": [
+        "Eğlenmek herkesin hakkı! Yeter ki bütçeyi aşma. 🎉📏",
+        "Hayat sadece işten ibaret değil. Ama eğlence bütçeni de takip et! 🎬🎯",
+        "Eğlence masrafları birikir. Haftalık limit koymak akıllıca olabilir. 🎪📊",
+        "Keyifli anılar paha biçilmez ama harcamaları da kaydetmek gerek. 📸💾"
+    ],
+    "Sağlık": [
+        "Sağlık her şeyden önemli. Harcamayı değil, şifayı düşün. 💊❤️",
+        "Sağlık masrafı yatırımdır. Check-up'larını ihmal etme! 🏥🩺",
+        "Geçmiş olsun! Sağlık harcamalarını sigorta ile dengelemeyi unutma. 🤒💪",
+        "Sağlığına yatırım yap, hastane masraflarına değil. Spor ve beslenme! 🏃🥦"
+    ],
+    "Diğer": [
+        "Harcama kaydedildi. Bilinçli harcama, birikimin yarısıdır. 🧠💡",
+        "Paranın nereye gittiğini bilmek, zenginliğin ilk adımı. 👣📊",
+        "Bu harcama gerekli miydi? Bir dahakine biraz daha düşünelim. 🤔⚖️",
+        "Küçük harcamalar, büyük birikimlerin sessiz düşmanıdır. 🐜📉",
+        "Not edildi! Bütçeni aşmamaya dikkat et. 📝⚠️",
+        "Her harcama bir tercih, her tercih bir gelecektir. 🔮💸",
+        "Harcamanı kaydettin, şimdi telafisi için plan yap. 📋🔄",
+        "Para akıyor, ama senin kontrolünde mi? 🌊🎛️"
+    ]
+}
 
 POZITIF_MESAJLAR = [
     "Bakiyen pozitif! Finansal hedeflerine doğru sağlam adımlarla ilerliyorsun. 🎯🏔️",
@@ -315,7 +391,9 @@ async def aciklama_alindi(update: Update, context: ContextTypes.DEFAULT_TYPE):
             parse_mode="Markdown"
         )
         
-        msg = random.choice(GELIR_MESAJLARI if data['type'] == 'gelir' else GIDER_MESAJLARI)
+        mesaj_havuzu = GELIR_MESAJLARI if data['type'] == 'gelir' else GIDER_MESAJLARI
+        kategori = data.get('category', 'Diğer')
+        msg = random.choice(mesaj_havuzu.get(kategori, mesaj_havuzu['Diğer']))
         await update.message.reply_text(msg)
         
     except Exception as e:
@@ -834,6 +912,11 @@ def main():
     app.add_error_handler(error_handler)
     
     print("Bot çalışıyor...")
+    
+    # Botun çalıştığı dizini ve DB yolunu logla
+    print(f"📂 DB Yolu: {DB_PATH}")
+    print(f"📂 Çalışma Dizini: {os.getcwd()}")
+    
     app.run_polling(drop_pending_updates=True)
 
 if __name__ == "__main__":
